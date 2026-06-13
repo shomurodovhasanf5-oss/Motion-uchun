@@ -1,0 +1,12 @@
+{
+  "name": "shomurodov_bro",
+  "version": "0.1.0",
+  "description": "Shomurodov motion — Premiere Pro va After Effects uchun reels montajini yarim-avtomatlashtiruvchi CEP plagini",
+  "private": true,
+  "author": "shomurodov_bro",
+  "license": "MIT",
+  "scripts": {
+    "test:node": "node node/processor.js --selftest"
+  },
+  "dependencies": {}
+}

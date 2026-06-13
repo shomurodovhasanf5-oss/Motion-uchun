@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Reels Montaj AI - CEP Extension Manifest
+  Premiere Pro (PPRO) va After Effects (AEFT), 2020+ versiyalari uchun.
+  PPRO 14.0 = 2020,  AEFT 17.0 = 2020
+-->
+<ExtensionManifest Version="9.0"
+                   ExtensionBundleId="uz.reelsmontaj.ai"
+                   ExtensionBundleVersion="0.1.0"
+                   ExtensionBundleName="Shomurodov motion"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <ExtensionList>
+    <Extension Id="uz.reelsmontaj.ai.panel" Version="0.1.0" />
+  </ExtensionList>
+
+  <ExecutionEnvironment>
+    <HostList>
+      <!-- Premiere Pro 2020 (14.0) va undan yuqori -->
+      <Host Name="PPRO" Version="[14.0,99.9]" />
+      <!-- After Effects 2020 (17.0) va undan yuqori -->
+      <Host Name="AEFT" Version="[17.0,99.9]" />
+    </HostList>
+
+    <LocaleList>
+      <Locale Code="All" />
+    </LocaleList>
+
+    <RequiredRuntimeList>
+      <RequiredRuntime Name="CSXS" Version="9.0" />
+    </RequiredRuntimeList>
+  </ExecutionEnvironment>
+
+  <DispatchInfoList>
+    <Extension Id="uz.reelsmontaj.ai.panel">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./client/index.html</MainPath>
+          <ScriptPath>./host/index.jsx</ScriptPath>
+          <!-- Node.js va CEP imkoniyatlarini yoqamiz -->
+          <CEFCommandLine>
+            <Parameter>--enable-nodejs</Parameter>
+            <Parameter>--mixed-context</Parameter>
+            <Parameter>--allow-file-access-from-files</Parameter>
+            <Parameter>--allow-file-access</Parameter>
+          </CEFCommandLine>
+        </Resources>
+        <Lifecycle>
+          <AutoVisible>true</AutoVisible>
+        </Lifecycle>
+        <UI>
+          <Type>Panel</Type>
+          <Menu>Shomurodov motion</Menu>
+          <Geometry>
+            <Size>
+              <Height>620</Height>
+              <Width>360</Width>
+            </Size>
+            <MinSize>
+              <Height>420</Height>
+              <Width>300</Width>
+            </MinSize>
+            <MaxSize>
+              <Height>2400</Height>
+              <Width>800</Width>
+            </MaxSize>
+          </Geometry>
+          <Icons>
+            <Icon Type="Normal">./client/assets/icon-normal.png</Icon>
+            <Icon Type="RollOver">./client/assets/icon-rollover.png</Icon>
+          </Icons>
+        </UI>
+      </DispatchInfo>
+    </Extension>
+  </DispatchInfoList>
+</ExtensionManifest>
