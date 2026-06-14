@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Ishlab chiqish (debug) rejimi uchun.
+  Chrome'da chrome://localhost:PORT manzilidan panelni debug qilish mumkin.
+  Buning ishlashi uchun Windows registr'da PlayerDebugMode=1 bo'lishi kerak
+  (README'dagi yo'riqnomaga qarang).
+-->
+<ExtensionList>
+  <Extension Id="uz.reelsmontaj.ai.panel">
+    <HostList>
+      <Host Name="PPRO" Port="8088" />
+      <Host Name="AEFT" Port="8089" />
+    </HostList>
+  </Extension>
+</ExtensionList>

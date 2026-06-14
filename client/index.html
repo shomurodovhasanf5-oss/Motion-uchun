@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shomurodov motion</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div class="topbar">
+        <span class="brand-tag">shomurodov_bro</span>
+        <span class="ver-badge">Shomurodov motion v0.1.0</span>
+      </div>
+
+      <header class="app-header">
+        <div class="logo">
+          <span class="logo-mark">SM</span>
+          <div class="logo-text">
+            <strong>Shomurodov motion</strong>
+            <small id="hostBadge">— yuklanmoqda…</small>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button id="settingsBtn" class="icon-btn" title="Sozlamalar">&#9881;</button>
+        </div>
+      </header>
+
+      <section class="preview-card">
+        <div class="preview-head">
+          <span>Jarayon</span>
+          <span class="sync"><span id="statusDot" class="dot"></span> holat</span>
+        </div>
+        <div class="preview-body">
+          <div class="status-row">
+            <span id="statusText">Tayyor.</span>
+          </div>
+          <div class="progress"><div id="progressBar" class="progress-bar"></div></div>
+        </div>
+      </section>
+
+      <section class="mode-bar">
+        <span class="mode-label">Rejim:</span>
+        <div class="toggle">
+          <button class="toggle-opt active" data-mode="offline">Offline</button>
+          <button class="toggle-opt" data-mode="online">Online (AI)</button>
+        </div>
+      </section>
+
+
+      <div class="section-title">Bosqichlar</div>
+      <main class="steps">
+        <button class="step-card" data-action="autocut">
+          <div class="step-num">1</div>
+          <div class="step-info">
+            <strong>Auto-Cut</strong>
+            <small>Jim va keraksiz qismlarni kesish</small>
+          </div>
+          <span class="chevron">&rsaquo;</span>
+        </button>
+
+        <button class="step-card" data-action="transcribe">
+          <div class="step-num">2</div>
+          <div class="step-info">
+            <strong>Subtitr + Tarjima</strong>
+            <small>UZ / RU / EN → matn → tarjima</small>
+          </div>
+          <span class="chevron">&rsaquo;</span>
+        </button>
+
+        <button class="step-card" data-action="audio">
+          <div class="step-num">3</div>
+          <div class="step-info">
+            <strong>Ovozni tekislash</strong>
+            <small>Loudness -14 LUFS, kanallar</small>
+          </div>
+          <span class="chevron">&rsaquo;</span>
+        </button>
+
+        <button class="step-card" data-action="abroll">
+          <div class="step-num">4</div>
+          <div class="step-info">
+            <strong>A-Roll / B-Roll</strong>
+            <small>Ajratish, joylash + AI generatsiya</small>
+          </div>
+          <span class="chevron">&rsaquo;</span>
+        </button>
+
+        <button class="step-card" data-action="motion">
+          <div class="step-num">5</div>
+          <div class="step-info">
+            <strong>Motion presetlar</strong>
+            <small>Silliq, mavzuga mos (AE)</small>
+          </div>
+          <span class="chevron">&rsaquo;</span>
+        </button>
+      </main>
+
+
+      <section class="console">
+        <div class="console-head">
+          <span>Jurnal</span>
+          <button id="clearLog" class="text-btn">Tozalash</button>
+        </div>
+        <pre id="logBox"></pre>
+      </section>
+
+      <footer class="app-footer">
+        <button id="pingHostBtn" class="primary-btn">Host bilan aloqani tekshirish</button>
+      </footer>
+    </div>
+
+    <!-- Sozlamalar oynasi -->
+    <div id="settingsModal" class="modal hidden">
+      <div class="modal-box">
+        <div class="modal-head">
+          <strong>Sozlamalar</strong>
+          <button id="closeSettings" class="icon-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+          <label class="field">
+            <span>Manba til (nutq)</span>
+            <select id="setSourceLang">
+              <option value="auto">Avto-aniqlash</option>
+              <option value="uz">O'zbek</option>
+              <option value="ru">Rus</option>
+              <option value="en">Ingliz</option>
+            </select>
+          </label>
+
+          <label class="field checkbox">
+            <input type="checkbox" id="setTranslate" />
+            <span>Tarjima qilinsin</span>
+          </label>
+
+          <label class="field">
+            <span>Tarjima tili</span>
+            <select id="setTargetLang">
+              <option value="uz">O'zbek</option>
+              <option value="ru">Rus</option>
+              <option value="en">Ingliz</option>
+              <option value="tr">Turk</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>API kalit (online rejim)</span>
+            <input type="password" id="setApiKey" placeholder="sk-..." />
+          </label>
+
+          <label class="field">
+            <span>Maxsus API manzili (ixtiyoriy)</span>
+            <input type="text" id="setBaseUrl" placeholder="https://api.openai.com/v1/..." />
+          </label>
+
+          <label class="field">
+            <span>Whisper model (offline, models/ ichidan)</span>
+            <input type="text" id="setWhisperModel" placeholder="ggml-medium.bin" />
+          </label>
+
+          <hr class="sep" />
+          <small class="hint">AI B-Roll generatsiya</small>
+          <label class="field">
+            <span>B-Roll turi</span>
+            <select id="setBrollKind">
+              <option value="image">Rasm (Nano Banana Pro)</option>
+              <option value="video">Video (Seedance/Kling/Veo)</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Video modeli</span>
+            <select id="setBrollVideoModel">
+              <option value="seedance">Seedance</option>
+              <option value="kling">Kling</option>
+              <option value="veo">Veo</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Gemini kalit (rasm uchun)</span>
+            <input type="password" id="setGeminiKey" placeholder="AIza..." />
+          </label>
+          <label class="field">
+            <span>fal.ai kalit (video uchun)</span>
+            <input type="password" id="setFalKey" placeholder="fal-..." />
+          </label>
+
+          <hr class="sep" />
+          <small class="hint">Auto-Cut sezgirligi</small>
+          <label class="field">
+            <span>Jimlik chegarasi (dB)</span>
+            <input type="number" id="setNoiseDb" step="1" />
+          </label>
+          <label class="field">
+            <span>Min. jimlik (soniya)</span>
+            <input type="number" id="setMinSilence" step="0.1" />
+          </label>
+        </div>
+        <div class="modal-foot">
+          <button id="saveSettings" class="primary-btn">Saqlash</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Motion preset tanlash oynasi -->
+    <div id="motionModal" class="modal hidden">
+      <div class="modal-box">
+        <div class="modal-head">
+          <strong>Motion preset tanlang</strong>
+          <button id="closeMotion" class="icon-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+          <small class="hint">Avval AE'da layer(lar)ni belgilang, so'ng preset tanlang.</small>
+          <label class="field">
+            <span>Animatsiya uzunligi (soniya)</span>
+            <input type="number" id="motionDur" step="0.1" value="0.7" />
+          </label>
+          <div id="motionList" class="motion-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/lib/CSInterface.js"></script>
+    <script src="./js/main.js"></script>
+  </body>
+</html>
