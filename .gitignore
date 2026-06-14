@@ -3,3 +3,8 @@ bin/
 models/
 *.log
 .DS_Store
+
+build/*.zxp
+build/cert.p12
+build/ZXPSignCmd
+build/ZXPSignCmd.exe
